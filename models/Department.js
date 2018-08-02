@@ -3,11 +3,11 @@ const Schema = mongoose.Schema;
 
 const departmentSchema = new Schema({
 
-    owner: {        
-        type: Schema.Types.ObjectId,
-        ref: "User",
+    // owner: {        
+    //     type: Schema.Types.ObjectId,
+    //     ref: "User",
         //required: [true, 'The owner name can\'t be empty']
-    },
+    //},
     price: Number,
     description: String,
     available: {

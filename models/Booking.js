@@ -1,32 +1,44 @@
 const mongoose = require('mongoose');
-const Schema = require('mongoose').Schema;
+const Schema = mongoose.Schema;
 
-const bookingSchema = new Schema({
-    // date1 = new Date,
-    // date2 = new Date,
+const bookingSchema = new Schema({ 
+    
+        
+        price: Number,
+        description: String,
+        
 
-       user: [{
-        type: Schema.Types.ObjectId,
-        ref: "User"
-}], 
-    department: [{
-        type: Schema.Types.ObjectId,
-        ref: "Departament"
-}],
-    price: [{
-        type: Schema.Types.ObjectId,
-        ref: "Department"
-}],
-    owner: [{
-        type: Schema.Types.ObjectId,
-        ref: "Departament"
-}],
     
 },{
     timestamps: {
       createdAt: "created_at",
       updatedAt: "updated_at"
     }
-});
+  }
+);
 
-module.exports = require('mongoose').model('Booking', bookingSchema);
+module.exports = mongoose.model('Booking', bookingSchema);
+
+
+// // date1 = new Date,
+//     // date2 = new Date,
+//     user: String,
+//     description: String,
+    
+    
+// //     user: [{
+// //         type: Schema.Types.ObjectId,
+// //         ref: "User"
+// // }], 
+// //     department: [{
+// //         type: Schema.Types.ObjectId,
+// //         ref: "Departament"
+// // }],
+// //     price: [{
+// //         type: Schema.Types.ObjectId,
+// //         ref: "Department"
+// // }],
+// //     owner: [{
+// //         type: Schema.Types.ObjectId,
+// //         ref: "Departament"
+// // }],

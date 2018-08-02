@@ -79,10 +79,10 @@ const departments = require('./routes/departments');
 const booking = require('./routes/reservation')
 
 app.use('/', index)
-app.use('/auth', auth)
-app.use('/profile', user)
-app.use('/departments', departments)
-app.use('/reservation', booking)
+app.use('/', auth)
+app.use('/', user)
+app.use('/', departments)
+app.use('/', booking)
 
 
 
