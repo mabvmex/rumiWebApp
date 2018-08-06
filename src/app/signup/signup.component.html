@@ -1,0 +1,19 @@
+
+<section>
+  <div>
+    <h2>Registrate</h2>
+    
+    <form (ngSubmit)="submitForm(myForm)" #myform="ngForm" ngNativeValidate>
+
+      <br> <input [(ngModel)]="auth.username" placeholder="Nombre de usuario" type="text" required>
+      <br> <input placeholder="Tu email" [(ngModel)]="auth.email" type="email" required>
+      <br> <input placeholder="Crea tu password" [(ngModel)]="auth.password"  type="password" minlength="6" required>
+      <br> <input placeholder="Verifica tu password" [(ngModel)]="auth.password2"  type="password" required>
+      
+      <br> <p *ngIf="auth.password != auth.password2" style="color: red">Tu contraseña no coicide</p>
+
+      <br> <button (click)="signup()">Registrarse</button>
+    </form>
+    <br> <p> Ya tienes cuenta? <button (click)="redirectLogin()" >Inicia sesión aquí</button> </p>
+  </div>
+</section>

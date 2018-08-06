@@ -1,0 +1,18 @@
+<nav>
+  &nbsp; <a [routerLink]="['home']"> Home </a>
+
+  </nav>
+ 
+
+<section>
+  <div>
+    <h2>Ingresa</h2>
+    
+    <br> <input placeholder="Ingresa tu email" [(ngModel)]="auth.email" type="text" required>
+    <br> <input placeholder="Ingrese tu password" [(ngModel)]="auth.password"  type="password" required>
+    
+    <br> <button (click)="login()">Entrar</button>
+    
+    <br> <p> No tienes cuenta? <button (click)="redirectSignup()" >Regístrate aquí</button> </p>
+  </div>
+</section>
