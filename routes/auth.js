@@ -1,8 +1,8 @@
-const express = require('express');
-const router   = express.Router();
-// const User = ('../models/User'); 
-// const passport = require('passport');
+const router = require('express').Router();
+const User      = require ('../models/User'); 
+const passport  = require('passport');
 const Department = require('../models/Department')
+
 
 function isAuthenticated(req, res, next){
      if(req.isAuthenticated()){
@@ -20,13 +20,23 @@ function isLogguedIn(req,res,next){
     }
 }
 
-router.get('/profile', isAuthenticated,(req, res)=>{
-    Department//.find()
-        .then(depas=>res.json(depas))
-            // res.status(202).json(departments)  })
-        .catch(err=>next(e))//{
-            // res.status(404).json(err)
-        });
+//loginFacebook ESTRATEGIA PASSPORT
+router.get('/facebook', passportFacebook.authenticate('facebook'));
+
+router.get('/facebook/callback',
+  passportFacebook.authenticate('facebook', { failureRedirect: '/' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/profile');
+  });
+
+router.get('/login', isAuth, (req, res, next) => {
+  res.render('auth/login');
+});
+
+router.post('/login', passport.authenticate('local'), (req, res, next) => {
+  res.redirect('/');
+});
+
 
 module.exports = router;
-

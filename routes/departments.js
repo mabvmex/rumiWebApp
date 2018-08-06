@@ -9,9 +9,8 @@ const uploads = multer({dest: './public/images'});
 
 
 // post new dep
-router.post('/departments', uploads.single('image'), (req, res, next)=>{
+router.post('/user/departments', uploads.single('image'), (req, res, next)=>{
     if(req.file) req.body.imgage = '/images/' + req.file.file
-    // req.body['owner'] = req.user._id
     Department.create(req.body)
         .then(dep=>{
             return res.status(200).json(dep)
@@ -21,7 +20,7 @@ router.post('/departments', uploads.single('image'), (req, res, next)=>{
 });
 
 //get one dep
-router.get('/departments/:id', (req, res)=>{
+router.get('/user/departments/:id', (req, res)=>{
     Department.findById(req.params.id)
     .then(depa => {
         if (!depa) return res.status(404)
@@ -32,7 +31,8 @@ router.get('/departments/:id', (req, res)=>{
 });
 
 // edit new dep
-router.put('/departments/edit/:id', (req, res, next)=>{
+router.put('/user/departments/edit/:id', uploads.single('image'), (req, res, next)=>{
+    if(req.file) req.body.image = '/images/' + req.file.filename
     Department.findByIdAndUpdate(req.params.id, req.body, {new:true})
     .then(dep=>{
         return res.status(200).json(dep)
@@ -42,7 +42,7 @@ router.put('/departments/edit/:id', (req, res, next)=>{
 });
 
 // delete
-router.delete('/departments/delete/:id', (req, res, next)=>{
+router.delete('/user/departments/delete/:id', (req, res, next)=>{
     Department.findOneAndRemove(req.params.id)
     .then(dep=>{
         res.status(200).json(dep)

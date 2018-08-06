@@ -3,8 +3,12 @@ const User          = require('../models/User');
 const passport      = require ('passport')
 const Department    = require('../models/Department')
 
-router.post("/signup", (req, res, next) => {
-    User.register(req.body)
+//multer
+const multer = require('multer');
+const uploads = multer({dest: './public/images'});
+
+router.post("/user/signup", (req, res, next) => {
+    User.register(req.body, req.body.password)
       .then(user => {
         res.status(200).json(user);
       })
@@ -12,11 +16,11 @@ router.post("/signup", (req, res, next) => {
         status(404).json(e)
    });
 
-router.post('/login', passport.authenticate('local'), (req,res,next)=>{
+
+router.post('/user/login', passport.authenticate('local'), (req,res,next)=>{
     req.app.locals.user = req.user
     res.json(req.user)
 });
-
    
 router.get('/logout', (req, res, next)=>{
     req.logout();
@@ -26,7 +30,7 @@ router.get('/logout', (req, res, next)=>{
 });
 
 //get profile
-router.get('/user/:id', (req, res, next)=>{
+router.get('/user/profile/:id', (req, res, next)=>{
     User.findById(req.params.id)
     .then(user=>{
         res.status(200).json(user)
@@ -37,7 +41,8 @@ router.get('/user/:id', (req, res, next)=>{
 })
 
 //edit profile
-router.put('/user/:id', (req, res, next)=>{
+router.put('/user/profile/:id', uploads.single('image'), (req, res, next)=>{
+    if(req.file) req.body.image = '/images/' + req.file.filename
     User.findById(req.params.id)
     .then(user=>{
         res.status(200).json(user)
@@ -47,16 +52,4 @@ router.put('/user/:id', (req, res, next)=>{
     })
 })
 
-
-// router.post('/', (req, res, next)=>{
-//     //req.body['owner'] = req.user._id
-//     // Department.create(req.body)
-//         .then(dep=>{
-//             return res.status(200).json(dep)
-//         }).catch(err=>{
-//             return res.status(503).json(err)
-//         })
-// })
-
 module.exports = router;
-
